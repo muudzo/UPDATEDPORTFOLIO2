@@ -5,7 +5,7 @@
 /* Base Reset & Fonts */
 :root {
   --font-win7: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --font-aqua: -apple-system, BlinkMacSystemFont, "Lucida Grande", Helvetica, Arial, sans-serif;
+  --font-aqua: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -25,15 +25,13 @@ body {
 
   --window-bg: rgba(210, 225, 240, 0.85);
   --window-border: rgba(255, 255, 255, 0.5);
-  --titlebar-height: 30px;
+  --window-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 
+  --titlebar-height: 30px;
   --taskbar-bg: rgba(20, 30, 40, 0.8);
   --taskbar-height: 40px;
 
   --glass-blur: blur(8px);
-  --glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-
-  --start-btn-size: 36px;
 }
 
 /* Theme: Mac Aqua */
@@ -43,11 +41,20 @@ body {
   --desktop-bg: url('https://512pixels.net/downloads/macos-wallpapers/10-4.png');
 
   --window-bg: #ececec;
-  --window-border: #b8b8b8;
-  --titlebar-height: 22px;
+  --window-border: #a0a0a0;
+  --window-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
 
-  --dock-bg: rgba(255, 255, 255, 0.5);
-  --glass-blur: blur(15px);
+  --titlebar-height: 22px;
+  --titlebar-bg: linear-gradient(to bottom, #f2f2f2, #dcdcdc);
+
+  --dock-bg: rgba(255, 255, 255, 0.45);
+  --glass-blur: blur(10px);
+
+  --pinstripe: repeating-linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.4) 0px,
+      rgba(255, 255, 255, 0.4) 1px,
+      transparent 1px,
+      transparent 2px);
 }
 
 @layer utilities {
@@ -57,6 +64,24 @@ body {
 
   .animate-win7-close {
     animation: win7Close 0.2s ease-in forwards;
+  }
+
+  /* Aqua Scrollbars */
+  .scrollbar-aqua::-webkit-scrollbar {
+    width: 15px;
+    background-color: #f7f7f7;
+    border-left: 1px solid #e0e0e0;
+  }
+
+  .scrollbar-aqua::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+
+  .scrollbar-aqua::-webkit-scrollbar-thumb:hover {
+    background-color: #a8a8a8;
   }
 }
 
