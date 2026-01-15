@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
 
 interface BootLoaderProps {
     onSelectOS: (os: 'win7' | 'mac') => void;
