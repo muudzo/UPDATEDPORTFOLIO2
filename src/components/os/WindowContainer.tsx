@@ -7,7 +7,6 @@ interface WindowContainerProps {
     isActive: boolean;
     children: React.ReactNode;
     onFocus: () => void;
-    onFocus: () => void;
     onDragEnd: (point: { x: number; y: number }) => void;
     onShake?: () => void;
 }

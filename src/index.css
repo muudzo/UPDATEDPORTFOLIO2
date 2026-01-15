@@ -57,6 +57,11 @@ body {
       transparent 2px);
 }
 
+/* Transition Helper */
+.transition-theme {
+  @apply transition-all duration-700 ease-in-out;
+}
+
 @layer utilities {
   .animate-win7-open {
     animation: win7Open 0.25s cubic-bezier(0.19, 1, 0.22, 1) forwards;
