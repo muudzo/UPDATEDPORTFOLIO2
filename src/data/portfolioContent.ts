@@ -40,7 +40,27 @@ export const portfolioData: PortfolioData = {
         description: "I build nostalgic, interactive web experiences and robust applications. Passionate about UI/UX and clean code.",
         skills: ["React", "TypeScript", "Node.js", "Tailwind CSS", "Next.js", "PostgreSQL"]
     },
-    projects: [], // specific data to be added in Commit 58
+    projects: [
+        {
+            id: "1",
+            title: "Nostalgia OS Portfolio",
+            description: "A dual-theme personal portfolio website featuring interactive Windows 7 and Mac OS X interfaces with draggable windows and a working taskbar/dock.",
+            technologies: ["React", "TypeScript", "Tailwind CSS", "Zustand"],
+            github: "https://github.com/tatenda/nostalgia-os"
+        },
+        {
+            id: "2",
+            title: "E-Commerce Dashboard",
+            description: "A comprehensive analytics dashboard for online retailers, featuring real-time data visualization and inventory management.",
+            technologies: ["Next.js", "Recharts", "Supabase"],
+        },
+        {
+            id: "3",
+            title: "AI Chat Assistant",
+            description: "A smart chat interface integrated with OpenAI API, featuring context awareness and code syntax highlighting.",
+            technologies: ["React", "OpenAI API", "Vite"],
+        }
+    ],
     experience: [],
     contact: {
         email: "tatenda@example.com",
