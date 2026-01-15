@@ -10,7 +10,7 @@ interface DesktopIconProps {
     onClick?: () => void;
 }
 
-export const DesktopIcon: React.FC<DesktopIconProps> = ({ id, label, icon, onClick }) => {
+const DesktopIconComponent: React.FC<DesktopIconProps> = ({ id, label, icon, onClick }) => {
     const { icons, selectedIconIds, selectIcon, updateIconPosition } = useDesktopStore();
     const position = icons.find(i => i.id === id) || { x: 0, y: 0 };
     const isSelected = selectedIconIds.includes(id);
