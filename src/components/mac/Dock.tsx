@@ -1,4 +1,5 @@
 import React from 'react';
+import { playSound } from '../../utils/sound';
 
 // Icons will be passed as children or config later
 export const Dock: React.FC = () => {
@@ -6,6 +7,7 @@ export const Dock: React.FC = () => {
         <div className="fixed bottom-0 left-0 w-full flex justify-center pb-2 z-50 pointer-events-none">
             <div
                 className="flex items-end px-4 pb-2 gap-2 rounded-t-xl rounded-b-lg backdrop-blur-md transition-all pointer-events-auto"
+                onMouseEnter={() => playSound('hover')}
                 style={{
                     background: 'linear-gradient(to bottom, rgba(230, 230, 230, 0.3) 0%, rgba(255, 255, 255, 0.7) 100%)',
                     boxShadow: '0 5px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6)',
