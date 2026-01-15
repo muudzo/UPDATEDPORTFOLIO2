@@ -20,12 +20,14 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
 }) => {
     return (
         <div
-            onMouseDown={onMouseDown}
-            className="h-8 flex items-center justify-between px-2 cursor-default select-none border-b transition-colors"
+            className="h-8 flex items-center justify-between px-2 select-none cursor-default transition-theme"
             style={{
-                backgroundColor: 'var(--window-bg, #eee)',
-                borderColor: 'var(--window-border, #ccc)'
+                background: 'var(--window-header-bg)',
+                borderBottom: '1px solid var(--window-border)',
+                color: 'var(--text-color)'
             }}
+            onMouseDown={onMouseDown}
+            onDoubleClick={onMaximize}
         >
             <div className="flex items-center gap-2">
                 {icon && <img src={icon} alt="" className="w-4 h-4" />}

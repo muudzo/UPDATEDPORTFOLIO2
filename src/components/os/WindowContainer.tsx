@@ -75,7 +75,7 @@ export const WindowContainer: React.FC<WindowContainerProps> = ({ windowState, i
                 onDragEnd({ x: windowState.position.x + info.offset.x, y: windowState.position.y + info.offset.y });
             }}
 
-            className={`absolute shadow-xl overflow-hidden rounded-lg ${isActive ? 'ring-1 ring-white/20' : ''}`}
+            className={`absolute shadow-xl overflow-hidden rounded-lg transition-theme ${isActive ? 'ring-1 ring-white/20' : ''}`}
             layout
         >
             {children}
