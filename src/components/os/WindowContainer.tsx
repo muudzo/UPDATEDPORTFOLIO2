@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { WindowState } from './types';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import type { WindowState } from './types';
+import { motion } from 'framer-motion';
 
 interface WindowContainerProps {
     windowState: WindowState;
@@ -11,7 +11,7 @@ interface WindowContainerProps {
 
 const windowVariants = {
     initial: { opacity: 0, scale: 0.95, y: 10 },
-    animate: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" } },
+    animate: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" as const } },
     exit: { opacity: 0, scale: 0.95, transition: { duration: 0.15 } }
 };
 
