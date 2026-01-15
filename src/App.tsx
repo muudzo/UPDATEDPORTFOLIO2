@@ -40,11 +40,20 @@ const WindowWrapper = ({ windowState }: { windowState: any }) => {
   //   );
   // };
 
+  import { BootSequence } from './components/common/BootSequence';
+
+  // Inside App component
   function App() {
+    // ... hooks ...
     const { windows, openWindow, focusWindow, closeWindow, minimizeWindow, maximizeWindow, activeWindowId, updateWindowPosition, minimizeAllBut } = useWindowStore();
+    const [isBooting, setIsBooting] = useState(true);
 
     return (
       <>
+        <AnimatePresence>
+          {isBooting && <BootSequence onComplete={() => setIsBooting(false)} />}
+        </AnimatePresence>
+
         <Desktop>
           <AnimatePresence>
             {windows.map((w) => (
