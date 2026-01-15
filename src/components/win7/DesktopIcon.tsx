@@ -1,35 +1,15 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Icon } from '../common/Icon';
+import { useDesktopStore } from '../../store/desktopStore';
 
 interface DesktopIconProps {
-    icon: string;
+    id: string; // Add ID prop
     label: string;
-    selected?: boolean;
-    onClick?: (e: React.MouseEvent) => void;
-    onDoubleClick?: () => void;
-    // Position controlled by parent via absolute or grid
-    className?: string;
+    icon?: string;
+    onClick?: () => void;
 }
 
-export const DesktopIcon: React.FC<DesktopIconProps> = ({
-    icon,
-    label,
-    selected,
-    onClick,
-    onDoubleClick,
-    className = ''
-}) => {
-    return (
-        <div
-            className={`flex flex-col items-center justify-start w-[74px] p-1 cursor-pointer border border-transparent transition-all group ${className}`}
-            style={{
-                backgroundColor: selected ? 'rgba(255, 255, 255, 0.2)' : undefined,
-                borderColor: selected ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
-                // Hover handled by hover: classes if not selected, usually
-            }}
-            onClick={onClick}
-            onDoubleClick={onDoubleClick}
-        >
             <div className={`filter ${selected ? 'brightness-110 drop-shadow-lg' : 'drop-shadow-md group-hover:brightness-105'}`}>
                 <Icon icon={icon} size={48} />
             </div>
@@ -39,6 +19,6 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
             >
                 {label}
             </span>
-        </div>
+        </div >
     );
 };
