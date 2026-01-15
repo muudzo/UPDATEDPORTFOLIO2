@@ -40,6 +40,7 @@ export const WindowContainer: React.FC<WindowContainerProps> = ({ windowState, i
             }}
             className={`absolute shadow-xl overflow-hidden rounded-lg ${isActive ? 'ring-1 ring-white/20' : ''}`}
             drag={false} // Drag handled by hook/header manually for now or update later
+            layout
         >
             {children}
         </motion.div>

@@ -6,7 +6,7 @@ import { useWindowStore } from './store/windowStore';
 import { WindowContainer } from './components/os/WindowContainer';
 import { WindowHeader } from './components/os/WindowHeader';
 import { WindowBody } from './components/os/WindowBody';
-// import { useDraggable } from './hooks/useDraggable'; // Need to update wrapper to use hook properly
+import { AnimatePresence } from 'framer-motion';
 
 // Temporary wrapper to bridge the hook and the store
 // Ideally this logic moves to a dedicated WindowManager component
@@ -60,7 +60,6 @@ const WindowWrapper = ({ windowState }: { windowState: any }) => {
                   onClose={() => closeWindow(w.id)}
                   onMinimize={() => minimizeWindow(w.id)}
                   onMaximize={() => maximizeWindow(w.id)}
-                  isActive={activeWindowId === w.id}
                 />
                 <WindowBody>
                   {/* Content would be dynamic here */}
