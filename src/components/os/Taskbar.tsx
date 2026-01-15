@@ -1,7 +1,8 @@
+```
 import React, { useState } from 'react';
 import { Clock } from '../common/Clock';
 import { StartMenu } from '../win7/StartMenu';
-import { StartButton } from './StartButton';
+import { StartButton } from '../win7/StartButton';
 
 export const Taskbar: React.FC = () => {
     const [isStartOpen, setIsStartOpen] = useState(false);
