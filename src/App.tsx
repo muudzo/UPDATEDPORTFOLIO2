@@ -41,7 +41,8 @@ const WindowWrapper = ({ windowState }: { windowState: any }) => {
   // };
 
   function App() {
-    const { windows, openWindow, focusWindow, closeWindow, minimizeWindow, maximizeWindow, activeWindowId } = useWindowStore();
+    const { windows, openWindow, focusWindow, closeWindow, minimizeWindow, maximizeWindow, updateWindowPosition, activeWindowId } = useWindowStore();
+    const { windows, openWindow, focusWindow, closeWindow, minimizeWindow, maximizeWindow, activeWindowId, updateWindowPosition } = useWindowStore();
 
     return (
       <>
@@ -53,6 +54,7 @@ const WindowWrapper = ({ windowState }: { windowState: any }) => {
                 windowState={w}
                 isActive={activeWindowId === w.id}
                 onFocus={() => focusWindow(w.id)}
+                onDragEnd={(pos) => updateWindowPosition(w.id, pos)}
               >
                 <WindowHeader
                   title={w.title}
