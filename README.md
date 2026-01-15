@@ -1,73 +1,42 @@
-# React + TypeScript + Vite
+# Nostalgia OS-Switcher Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A unique interactive portfolio website that lets users switch between **Windows 7** and **Mac OS X Aqua** themes. Built with React, TypeScript, Tailwind CSS, and Framer Motion.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dual Operating System Themes**: Hot-switch between Windows 7 and Mac OS X.
+- **Boot Loader**: Authentic boot sequence and OS selection screen.
+- **Window Management**: Drag, minimize, maximize, and stack windows.
+- **Start Menu & Finder**: Functional menus with search and navigation.
+- **Animations**: Smooth transitions, genie effect (Mac), and window animations.
+- **Accessibility**: Keyboard navigation and ARIA support.
+- **Persistence**: Remembers your theme choice.
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
 
-## Expanding the ESLint configuration
+2.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:5173](http://localhost:5173) to view.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3.  **Run Tests**:
+    ```bash
+    npm test
+    ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Project Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- `src/components/win7`: Windows 7 specific components (StartMenu, Taskbar).
+- `src/components/mac`: Mac OS X specific components (Dock, MenuBar).
+- `src/components/os`: Shared OS components (WindowContainer, Desktop).
+- `src/store`: Zustand stores for state management (windowStore, desktopStore, themeStore).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Credits
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Created by Tatenda Nyemudzo.
