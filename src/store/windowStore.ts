@@ -8,6 +8,7 @@ interface WindowStore {
     closeWindow: (id: string) => void;
     minimizeWindow: (id: string) => void;
     maximizeWindow: (id: string) => void;
+    minimizeAllBut: (id: string) => void;
     focusWindow: (id: string) => void;
     updateWindowPosition: (id: string, position: Position) => void;
 }
@@ -48,12 +49,15 @@ export const useWindowStore = create<WindowStore>((set) => ({
     })),
 
     minimizeWindow: (id) => set((state) => ({
-        windows: state.windows.map(w => w.id === id ? { ...w, isMinimized: !w.isMinimized } : w),
-        activeWindowId: null // simplistic defocus
+        windows: state.windows.map(w => w.id === id ? { ...w, isMinimized: true } : w) // Modified this line
     })),
 
     maximizeWindow: (id) => set((state) => ({
         windows: state.windows.map(w => w.id === id ? { ...w, isMaximized: !w.isMaximized } : w)
+    })),
+
+    minimizeAllBut: (id) => set((state) => ({ // Added this block
+        windows: state.windows.map(w => w.id === id ? { ...w, isMinimized: false } : { ...w, isMinimized: true })
     })),
 
     focusWindow: (id) => set((state) => {

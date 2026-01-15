@@ -7,7 +7,9 @@ interface WindowContainerProps {
     isActive: boolean;
     children: React.ReactNode;
     onFocus: () => void;
+    onFocus: () => void;
     onDragEnd: (point: { x: number; y: number }) => void;
+    onShake?: () => void;
 }
 
 const windowVariants = {
@@ -23,7 +25,12 @@ const windowVariants = {
     }
 };
 
-export const WindowContainer: React.FC<WindowContainerProps> = ({ windowState, isActive, children, onFocus, onDragEnd }) => {
+export const WindowContainer: React.FC<WindowContainerProps> = ({ windowState, isActive, children, onFocus, onDragEnd, onShake }) => {
+    // Shake detection
+    const shakeCount = React.useRef(0);
+    const lastSign = React.useRef(0);
+    const lastShakeTime = React.useRef(0);
+
     return (
         <motion.div
             variants={windowVariants}
@@ -39,9 +46,36 @@ export const WindowContainer: React.FC<WindowContainerProps> = ({ windowState, i
             dragMomentum={true}
             dragElastic={0.1}
             dragListener={false}
+
+            onDrag={(_, info) => {
+                const velocityX = info.velocity.x;
+                const now = Date.now();
+                // If velocity high enough
+                if (Math.abs(velocityX) > 300) {
+                    const sign = Math.sign(velocityX);
+                    if (sign !== lastSign.current && lastSign.current !== 0) {
+                        // Direction changed
+                        if (now - lastShakeTime.current < 500) {
+                            shakeCount.current += 1;
+                        } else {
+                            shakeCount.current = 1; // Reset if too slow
+                        }
+                        lastShakeTime.current = now;
+
+                        if (shakeCount.current >= 4) {
+                            onShake && onShake();
+                            shakeCount.current = 0; // Cooldown
+                        }
+                    }
+                    lastSign.current = sign;
+                }
+            }}
+
             onDragEnd={(_, info) => {
+                shakeCount.current = 0;
                 onDragEnd({ x: windowState.position.x + info.offset.x, y: windowState.position.y + info.offset.y });
             }}
+
             className={`absolute shadow-xl overflow-hidden rounded-lg ${isActive ? 'ring-1 ring-white/20' : ''}`}
             layout
         >
