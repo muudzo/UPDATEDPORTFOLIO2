@@ -61,7 +61,30 @@ export const portfolioData: PortfolioData = {
             technologies: ["React", "OpenAI API", "Vite"],
         }
     ],
-    experience: [],
+    experience: [
+        {
+            id: "1",
+            role: "Senior Frontend Engineer",
+            company: "Tech Solutions Inc.",
+            duration: "2023 - Present",
+            description: [
+                "Led the migration of legacy dashboard to Next.js, improving load times by 40%.",
+                "Implemented a reusable component library used across 5 products.",
+                "Mentored 3 junior developers."
+            ]
+        },
+        {
+            id: "2",
+            role: "Web Developer",
+            company: "Creative Agency",
+            duration: "2021 - 2023",
+            description: [
+                "Built responsive websites for diverse clients using React and GSAP.",
+                "Collaborated with designers to ensure pixel-perfect implementation from Figma.",
+                "Optimized SEO scores to 95+ for key client landing pages."
+            ]
+        }
+    ],
     contact: {
         email: "tatenda@example.com",
         github: "https://github.com/tatenda",
