@@ -8,7 +8,7 @@ interface WindowHeaderProps {
     onMinimize: () => void;
     onMaximize: () => void;
     onMouseDown: () => void;
-    onDoubleClick?: () => void; // Add this prop
+    onDoubleClick?: () => void;
 }
 
 export const WindowHeader: React.FC<WindowHeaderProps> = ({
@@ -37,9 +37,9 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
             {theme === 'mac' && (
                 <div className="flex items-center gap-2">
                     <div className="flex gap-1.5 group">
-                        <span className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e] cursor-pointer flex items-center justify-center text-[8px] text-[#4d0000] opacity-0 group-hover:opacity-100 transition-opacity" onClick={onClose}>✕</span>
-                        <span className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123] cursor-pointer flex items-center justify-center text-[8px] text-[#995700] opacity-0 group-hover:opacity-100 transition-opacity" onClick={onMinimize}>−</span>
-                        <span className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29] cursor-pointer flex items-center justify-center text-[8px] text-[#006500] opacity-0 group-hover:opacity-100 transition-opacity" onClick={onMaximize}>+</span>
+                        <span role="button" aria-label="Close" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && onClose()} className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e] cursor-pointer flex items-center justify-center text-[8px] text-[#4d0000] opacity-0 group-hover:opacity-100 transition-opacity" onClick={onClose}>✕</span>
+                        <span role="button" aria-label="Minimize" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && onMinimize()} className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123] cursor-pointer flex items-center justify-center text-[8px] text-[#995700] opacity-0 group-hover:opacity-100 transition-opacity" onClick={onMinimize}>−</span>
+                        <span role="button" aria-label="Maximize" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && onMaximize()} className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29] cursor-pointer flex items-center justify-center text-[8px] text-[#006500] opacity-0 group-hover:opacity-100 transition-opacity" onClick={onMaximize}>+</span>
                     </div>
                 </div>
             )}
@@ -54,13 +54,13 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
             {/* Windows 7 Controls (Right) */}
             {theme === 'win7' && (
                 <div className="flex items-center h-6">
-                    <button className="w-8 h-5 flex items-center justify-center hover:bg-white/20 active:bg-white/10 rounded-sm transition-colors" onClick={onMinimize}>
+                    <button aria-label="Minimize" className="w-8 h-5 flex items-center justify-center hover:bg-white/20 active:bg-white/10 rounded-sm transition-colors" onClick={onMinimize}>
                         <span className="w-2 h-[2px] bg-current opacity-80"></span>
                     </button>
-                    <button className="w-8 h-5 flex items-center justify-center hover:bg-white/20 active:bg-white/10 rounded-sm transition-colors" onClick={onMaximize}>
+                    <button aria-label="Maximize" className="w-8 h-5 flex items-center justify-center hover:bg-white/20 active:bg-white/10 rounded-sm transition-colors" onClick={onMaximize}>
                         <span className="w-2 h-2 border border-current opacity-80"></span>
                     </button>
-                    <button className="w-10 h-5 flex items-center justify-center hover:bg-red-600 hover:text-white active:bg-red-700 rounded-sm transition-colors ml-1" onClick={onClose}>
+                    <button aria-label="Close" className="w-10 h-5 flex items-center justify-center hover:bg-red-600 hover:text-white active:bg-red-700 rounded-sm transition-colors ml-1" onClick={onClose}>
                         <span className="text-xs font-bold leading-none">✕</span>
                     </button>
                 </div>
