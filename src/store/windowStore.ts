@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { WindowState, Position } from '../components/os/types';
+import type { WindowState, Position } from '../components/os/types';
 
 interface WindowStore {
     windows: WindowState[];

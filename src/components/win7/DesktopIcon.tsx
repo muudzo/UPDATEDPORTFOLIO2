@@ -53,3 +53,5 @@ const DesktopIconComponent: React.FC<DesktopIconProps> = ({ id, label, icon, onC
         </motion.div>
     );
 };
+
+export const DesktopIcon = React.memo(DesktopIconComponent);
