@@ -9,22 +9,15 @@ import { WindowBody } from './components/os/WindowBody';
 import { AnimatePresence } from 'framer-motion';
 import { BootSequence } from './components/common/BootSequence';
 import { BootLoader } from './components/common/BootLoader';
+import { useThemeStore } from './store/themeStore';
 
 function App() {
   const { windows, openWindow, focusWindow, closeWindow, minimizeWindow, maximizeWindow, activeWindowId, updateWindowPosition, minimizeAllBut } = useWindowStore();
   const [bootStage, setBootStage] = useState<'loader' | 'sequence' | 'desktop'>('loader');
-  const [currentTheme, setCurrentTheme] = useState<'win7' | 'mac'>('win7');
+  const { setTheme } = useThemeStore();
 
   const handleOSSelect = (os: 'win7' | 'mac') => {
-    setCurrentTheme(os);
-    // Here we would switch CSS variables or class
-    // For now, assuming win7 is default, we can toggle specific classes if needed.
-    // Settings logic would be similar.
-    if (os === 'mac') {
-      document.documentElement.setAttribute('data-theme', 'mac');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
+    setTheme(os);
     setBootStage('sequence');
   };
 

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useWindowStore } from '../../store/windowStore'; // Assume we might bind later
+import { useThemeStore } from '../../store/themeStore';
 
 // Placeholder settings logic
 export const Settings: React.FC = () => {
-    const [theme, setTheme] = useState<'win7' | 'aqua'>('win7');
-    const [wallpaper, setWallpaper] = useState('Default');
+    const { theme, setTheme, wallpaper, setWallpaper } = useThemeStore();
+    // const [theme, setTheme] = useState<'win7' | 'aqua'>('win7'); // Removed local state
+    // const [wallpaper, setWallpaper] = useState('Default');
 
     return (
         <div className="p-6 h-full bg-[#f0f0f0] select-none">
@@ -25,8 +25,8 @@ export const Settings: React.FC = () => {
                                     Windows 7
                                 </button>
                                 <button
-                                    onClick={() => setTheme('aqua')}
-                                    className={`px-4 py-2 rounded border text-sm transition-all ${theme === 'aqua' ? 'bg-blue-600 text-white border-blue-700' : 'bg-gray-50 border-gray-200 hover:bg-gray-100'}`}
+                                    onClick={() => setTheme('mac')}
+                                    className={`px-4 py-2 rounded border text-sm transition-all ${theme === 'mac' ? 'bg-blue-600 text-white border-blue-700' : 'bg-gray-50 border-gray-200 hover:bg-gray-100'}`}
                                 >
                                     Mac OS X
                                 </button>
