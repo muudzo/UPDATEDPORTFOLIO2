@@ -26,7 +26,7 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({ id, label, icon, onCli
             animate={{ x: position.x, y: position.y }}
             transition={{ duration: 0 }}
 
-            className={`absolute flex flex-col items-center justify-center gap-1 p-2 rounded cursor-pointer border border-transparent transition-colors w-[80px] group
+            className={`absolute flex flex-col items-center justify-center gap-1 p-2 rounded cursor-pointer border border-transparent transition-colors w-[80px] group outline-none focus:bg-white/10 focus:border-white/20
         ${isSelected ? "bg-blue-400/20 border-blue-300/50" : "hover:bg-white/10 hover:border-white/10"}`}
             onClick={(e) => {
                 e.stopPropagation();
@@ -34,6 +34,15 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({ id, label, icon, onCli
                 onClick && onClick();
             }}
             onDoubleClick={onClick}
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    onClick && onClick();
+                } else if (e.key === ' ') {
+                    e.preventDefault();
+                    selectIcon(id, e.metaKey || e.ctrlKey);
+                }
+            }}
         >
             <div className="w-10 h-10 mb-1 drop-shadow-md">
                 <Icon icon={icon} size={40} className="text-white drop-shadow-lg filter" />
