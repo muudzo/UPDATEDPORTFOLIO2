@@ -1,76 +1,93 @@
-import React from 'react';
-import { StartMenuItem } from './StartMenuItem';
+import React, { useState } from 'react';
+import { Icon } from '../common/Icon';
+import { useWindowStore } from '../../store/windowStore';
 
-// Start Menu Component for Windows 7
-export const StartMenu: React.FC = () => {
+interface StartMenuItem {
+    label: string;
+    icon?: string;
+    action?: () => void;
+    type?: 'app' | 'link';
+}
+
+export const StartMenu: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const { openWindow } = useWindowStore();
+
+    const items: StartMenuItem[] = [
+        { label: 'Documents', icon: 'folder', action: () => openWindow({ id: 'Docs', title: 'Documents', type: 'folder', content: <div>Docs</div>, position: { x: 100, y: 100 }, size: { width: 600, height: 400 } }) },
+        { label: 'Pictures', icon: 'image', action: () => openWindow({ id: 'Pics', title: 'Pictures', type: 'folder', content: <div>Pics</div>, position: { x: 100, y: 100 }, size: { width: 600, height: 400 } }) },
+        { label: 'Music', icon: 'music', action: () => { } },
+        { label: 'Calculator', icon: 'calculator', action: () => openWindow({ id: 'Calculator', title: 'Calculator', type: 'app', content: <div>Calc</div>, position: { x: 100, y: 100 }, size: { width: 300, height: 400 } }) },
+        { label: 'Notepad', icon: 'file-text', action: () => { } },
+        { label: 'Paint', icon: 'edit-2', action: () => { } },
+        { label: 'Settings', icon: 'settings', action: () => { } },
+    ];
+
+    const filteredItems = items.filter(item => item.label.toLowerCase().includes(searchTerm.toLowerCase()));
+
     return (
         <div
-            className="absolute bottom-[40px] left-0 w-[400px] h-[550px] z-[49] rounded-tr-lg rounded-tl-lg overflow-hidden flex shadow-[0_0_20px_rgba(0,0,0,0.5)] origin-bottom-left"
-            style={{
-                background: 'var(--window-bg)',
-                backdropFilter: 'var(--glass-blur)',
-                border: '1px solid var(--window-border)',
-                boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.3), 0 10px 30px rgba(0,0,0,0.6)'
-            }}
+            className="absolute bottom-10 left-0 w-[400px] h-[500px] bg-[#f0f0f0] border border-[#999] rounded-tr-lg shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-2 fade-in duration-200 z-50"
+            style={{ boxShadow: '0 0 10px rgba(0,0,0,0.5)' }}
         >
-            {/* User Avatar Overlap (Placeholder) */}
-            <div className="absolute top-[-25px] right-[40px] w-[60px] h-[60px] bg-white rounded border-4 border-[rgba(255,255,255,0.3)] shadow-lg z-20 hidden">
-                {/* User pic */}
+            {/* User Pic & Header */}
+            <div className="h-16 bg-gradient-to-b from-[#256dbe] to-[#175294] border-t border-[#4f93e3] p-4 flex items-center gap-3">
+                <div className="w-10 h-10 bg-white rounded border-2 border-white overflow-hidden shadow">
+                    <img src="https://github.com/tatenda.png" alt="User" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white font-bold text-lg drop-shadow">Tatenda Nyemudzo</span>
             </div>
 
-            {/* Left Column: Programs (White) */}
-            <div className="w-[60%] m-[5px] mr-0 bg-white border border-[#7f9db9] rounded-sm relative flex flex-col shadow-inner">
-                <div className="flex-1 overflow-y-auto p-1 scrollbar-win7 flex flex-col gap-0.5">
-                    <StartMenuItem icon="chrome" label="Google Chrome" subLabel="Internet" />
-                    <StartMenuItem icon="code" label="VS Code" subLabel="Editor" />
-                    <StartMenuItem icon="terminal" label="Command Prompt" />
-                    <StartMenuItem icon="folder" label="Explorer" />
-                    <StartMenuItem icon="calc" label="Calculator" />
-                    <StartMenuItem icon="notepad" label="Notepad" />
-                    <div className="flex-1" />
-                    <div className="text-gray-800 font-bold text-sm px-2 py-2 hover:bg-[#dcebfd] cursor-pointer flex items-center gap-2 transition-colors">
-                        All Programs <span className="text-[10px]">▶</span>
-                    </div>
-                </div>
-
-                {/* Search Box */}
-                <div className="p-2 bg-gradient-to-t from-[#e3e9f0] to-[#f2f4f8]">
-                    <div className="relative">
-                        <input
-                            type="text"
-                            placeholder="Search programs and files"
-                            className="w-full h-8 px-2 text-sm italic text-gray-500 border border-[#afc3d8] rounded-[2px] focus:outline-none focus:border-[#3399ff]"
-                            style={{
-                                fontStyle: 'italic'
+            <div className="flex-1 flex">
+                {/* Left Pane (Programs) */}
+                <div className="flex-1 bg-white p-2 overflow-y-auto">
+                    {filteredItems.map((item, idx) => (
+                        <div
+                            key={idx}
+                            className="flex items-center gap-2 p-2 hover:bg-[#2f71cd] hover:text-white rounded cursor-pointer group transition-colors"
+                            onClick={() => {
+                                item.action && item.action();
+                                onClose();
                             }}
-                        />
-                    </div>
+                        >
+                            <Icon icon={item.icon || 'circle'} size={24} className="text-gray-600 group-hover:text-white" />
+                            <span className="text-sm font-medium">{item.label}</span>
+                        </div>
+                    ))}
+                    {filteredItems.length === 0 && (
+                        <div className="text-gray-500 text-center mt-10">No results found.</div>
+                    )}
+                </div>
+
+                {/* Right Pane (System Links) */}
+                <div className="w-1/3 bg-[#dbe8f5] border-l border-[#fff] p-2 space-y-1 text-sm text-[#1e395b]">
+                    {['Documents', 'Pictures', 'Music', 'Computer', 'Control Panel', 'Devices and Printers', 'Help and Support'].map(link => (
+                        <div key={link} className="p-2 hover:bg-[#2f71cd] hover:text-white rounded cursor-pointer transition-colors block">
+                            {link}
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            {/* Right Column: Places (Transparent/Dark) */}
-            <div className="flex-1 p-[10px] flex flex-col gap-[2px] text-[#1e1e1e] text-[13px] leading-tight">
-                <div style={{ textShadow: '0 0 5px rgba(255,255,255,0.8)' }} className="flex flex-col gap-[4px] font-medium text-[#1e1414]">
-                    <div className="hover:bg-[rgba(255,255,255,0.2)] hover:border border-[rgba(255,255,255,0.4)] p-2 rounded-[2px] cursor-pointer">Guest</div>
-                    <div className="hover:bg-[rgba(255,255,255,0.2)] hover:border border-[rgba(255,255,255,0.4)] p-2 rounded-[2px] cursor-pointer">Documents</div>
-                    <div className="hover:bg-[rgba(255,255,255,0.2)] hover:border border-[rgba(255,255,255,0.4)] p-2 rounded-[2px] cursor-pointer">Pictures</div>
-                    <div className="hover:bg-[rgba(255,255,255,0.2)] hover:border border-[rgba(255,255,255,0.4)] p-2 rounded-[2px] cursor-pointer">Music</div>
-                    <div className="h-px bg-[rgba(0,0,0,0.1)] border-b border-[rgba(255,255,255,0.1)] my-1 mx-2" />
-                    <div className="hover:bg-[rgba(255,255,255,0.2)] hover:border border-[rgba(255,255,255,0.4)] p-2 rounded-[2px] cursor-pointer">Computer</div>
-                    <div className="hover:bg-[rgba(255,255,255,0.2)] hover:border border-[rgba(255,255,255,0.4)] p-2 rounded-[2px] cursor-pointer">Control Panel</div>
-                    <div className="cursor-pointer p-2 hover:bg-white/20 rounded">Devices and Printers</div>
-                    <div className="cursor-pointer p-2 hover:bg-white/20 rounded">Default Programs</div>
-                    <div className="cursor-pointer p-2 hover:bg-white/20 rounded">Help and Support</div>
+            {/* Bottom Search & Shutdown */}
+            <div className="h-12 bg-gradient-to-b from-[#e3e9f0] to-[#cfd7eb] border-t border-[#b6bccc] px-4 flex items-center gap-3">
+                <div className="relative flex-1">
+                    <input
+                        type="text"
+                        placeholder="Search programs and files"
+                        className="w-full pl-8 pr-3 py-1.5 rounded border border-[#8e96a7] bg-white text-sm italic focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        autoFocus
+                    />
+                    <div className="absolute left-2 top-1.5 text-gray-400">
+                        <Icon icon="search" size={14} />
+                    </div>
                 </div>
 
-                <div className="flex-1" />
-
-                {/* Shutdown Button Area */}
-                <div className="flex justify-end mt-2">
-                    <button className="px-4 py-1 bg-gradient-to-b from-[#f2f2f2] to-[#cfd0d2] border border-[#8e8f90] rounded-[2px] text-xs hover:to-[#e0e0e0] shadow-sm">
-                        Shut down
-                    </button>
-                </div>
+                <button className="px-4 py-1.5 bg-gradient-to-b from-[#f2d58d] to-[#eeba3e] border border-[#b28b29] rounded shadow-sm text-[#1e395b] font-medium hover:brightness-105 active:brightness-95 text-sm">
+                    Shut down
+                </button>
             </div>
         </div>
     );
