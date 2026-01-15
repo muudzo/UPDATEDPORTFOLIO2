@@ -9,9 +9,7 @@ import { WindowBody } from './components/os/WindowBody';
 import { AnimatePresence } from 'framer-motion';
 import { BootSequence } from './components/common/BootSequence';
 
-// Inside App component
 function App() {
-  // ... hooks ...
   const { windows, openWindow, focusWindow, closeWindow, minimizeWindow, maximizeWindow, activeWindowId, updateWindowPosition, minimizeAllBut } = useWindowStore();
   const [isBooting, setIsBooting] = useState(true);
 
@@ -23,56 +21,52 @@ function App() {
 
       <Desktop>
         <AnimatePresence>
-          onFocus={() => focusWindow(w.id)}
-          onDragEnd={(pos) => updateWindowPosition(w.id, pos)}
-          onShake={() => minimizeAllBut(w.id)}
-              >
-          <WindowHeader
-            title={w.title}
-            icon={w.icon}
-            onClose={() => closeWindow(w.id)}
-            onMinimize={() => minimizeWindow(w.id)}
-            onMaximize={() => maximizeWindow(w.id)}
-            onMouseDown={() => { }} // Header now handles drag start if using dragControls, but we are using dragListener={false} on container. 
-          // Actually, to make drag work with dragListener={false}, the header needs to trigger the drag.
-          // But standard framer drag requires dragControls for that.
-          // For simplicity in this 'fix' step, I'll pass empty handler to satisfy TS, 
-          // but I should really fix the drag logic. Set dragListener={true} on container and use class-based filtering or just let it be draggable everywhere for now if easier to fix functionality.
-          // I'll stick to satisfying TS first.
-          />
-          <WindowBody>
-            {/* Content would be dynamic here */}
-            <div className="p-4">
-              <h2 className="text-xl font-bold mb-2">Welcome to {w.title}</h2>
-              <p>This is a sample window content.</p>
-            </div>
-          </WindowBody>
-        </WindowContainer>
-            ))}
-      </AnimatePresence>
+          {windows.map((w) => (
+            <WindowContainer
+              key={w.id}
+              windowState={w}
+              isActive={activeWindowId === w.id}
+              onFocus={() => focusWindow(w.id)}
+              onDragEnd={(pos) => updateWindowPosition(w.id, pos)}
+              onShake={() => minimizeAllBut(w.id)}
+            >
+              <WindowHeader
+                title={w.title}
+                icon={w.icon}
+                onClose={() => closeWindow(w.id)}
+                onMinimize={() => minimizeWindow(w.id)}
+                onMaximize={() => maximizeWindow(w.id)}
+                onMouseDown={() => { }}
+              />
+              <WindowBody>
+                {w.content}
+              </WindowBody>
+            </WindowContainer>
+          ))}
+        </AnimatePresence>
 
-      {/* Debug Controls */}
-      <div className="absolute top-10 left-10 z-10 flex gap-2">
-        <button
-          className="bg-white/80 p-2 rounded shadow text-black"
-          onClick={() => openWindow({
-            id: 'test-' + Date.now(),
-            title: 'Test Window',
-            content: <div className="p-4">Content here...</div>,
-            position: { x: 100 + windows.length * 20, y: 100 + windows.length * 20 },
-            size: { width: 400, height: 300 },
-            type: 'app'
-          })}
-        >
-          Spawn Window
-        </button>
-      </div>
-    </Desktop >
+        {/* Debug Controls */}
+        <div className="absolute top-10 left-10 z-10 flex gap-2">
+          <button
+            className="bg-white/80 p-2 rounded shadow text-black"
+            onClick={() => openWindow({
+              id: 'test-' + Date.now(),
+              title: 'Test Window',
+              content: <div className="p-4">Content here...</div>,
+              position: { x: 100 + windows.length * 20, y: 100 + windows.length * 20 },
+              size: { width: 400, height: 300 },
+              type: 'app'
+            })}
+          >
+            Spawn Window
+          </button>
+        </div>
+      </Desktop>
 
-        <Taskbar />
-        <NotificationContainer />
-      </>
-    );
+      <Taskbar />
+      <NotificationContainer />
+    </>
+  );
 }
 
 export default App;

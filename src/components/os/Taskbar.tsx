@@ -1,4 +1,3 @@
-```
 import React, { useState } from 'react';
 import { Clock } from '../common/Clock';
 import { StartMenu } from '../win7/StartMenu';
