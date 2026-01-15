@@ -1,4 +1,5 @@
 import React from 'react';
+import { Clock } from '../common/Clock';
 
 export const Taskbar: React.FC = () => {
     return (
@@ -9,7 +10,14 @@ export const Taskbar: React.FC = () => {
                 backdropFilter: 'var(--glass-blur, blur(10px))',
             }}
         >
-            <div className="text-white text-xs opacity-70">Taskbar Area</div>
+            {/* System Tray */}
+            <div className="flex items-center px-2 py-1 gap-2 border-l border-white/10 bg-white/5 h-full">
+                <div className="flex flex-col items-center justify-center text-xs text-center text-white leading-tight px-2 hover:bg-white/10 rounded cursor-default h-full min-w-[60px]">
+                    <Clock format="timeOnly" />
+                    {/* Optional Date for larger taskbar */}
+                </div>
+                <div className="w-[10px] h-full border-l border-white/20 hover:bg-white/20 cursor-pointer" title="Show Desktop"></div>
+            </div>
         </div>
     );
 };

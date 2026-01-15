@@ -1,3 +1,4 @@
+```javascript
 import React from 'react';
 import { Clock } from '../common/Clock';
 
